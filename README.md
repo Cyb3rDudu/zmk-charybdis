@@ -32,56 +32,36 @@ Download your choice of firmware from the Releases page. Choose a combination of
 
 To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 
-⌨️ Keyboard Layers
-| # | Layer      | Purpose                                                          |
-| - | ---------- | ---------------------------------------------------------------- |
-| 0 | **BASE**   | Standard typing with timeless home-row mods                      |
-| 1 | **NUM**    | Combined digits + F-keys (tap for numbers, hold for functions)   |
-| 2 | **NAV**    | Arrow keys, paging, TMUX navigation, mouse pointer               |
-| 3 | **SYM**    | Symbols, punctuation, and a couple of helpers                    |
-| 4 | **GAME**   | Gaming layer (just key-codes, no mods)                           |
-| 5 | **EXTRAS** | Shortcuts, functions & snippets                                  |
-| 6 | **MOUSE**  | Full mouse-key layer (pointer + wheel)                           |
-| 7 | **SLOW**   | Low-speed pointer for pixel-perfect work                         |
-| 8 | **SCROLL** | Vertical/Horizontal scroll layer                                 |
+#### Layers
+| # | Layer      | Access                          | Purpose                                       |
+| - | ---------- | ------------------------------- | --------------------------------------------- |
+| 0 | **QWRT**   | Default                         | Standard QWERTY typing                        |
+| 1 | **NUM**    | Hold right thumb (K40)          | Numbers, brackets, symbols, arithmetic         |
+| 2 | **NAVI**   | —                               | Arrow keys, delete, clipboard paste            |
+| 3 | **SCROLL** | Hold left thumb (K37)           | Arrow keys, delete, clipboard paste            |
+| 4 | **SNIPE**  | Hold top-left key (K00)         | F-keys, Bluetooth, media, brightness           |
 
-🏠 Home-Row Mods
-| Side                | Hold = Modifier              | Tap = Letter / Key  |
-| ------------------- | ---------------------------- | ------------------- |
-| Left                | **Gui / Alt / Shift / Ctrl** | `A S D F`           |
-| Right               | **Ctrl / Shift / Alt / Gui** | `J K L ;`           |
+#### Modifiers
+| Position    | Key                              |
+| ----------- | -------------------------------- |
+| Left outer  | `Shift` (row 1), `Ctrl` (row 2) |
+| Right outer | `Shift` (row 1), `Ctrl` (row 2) |
 
+#### Thumb Cluster
+| Key  | Left Hand                                   |     | Key  | Right Hand          |
+| ---- | ------------------------------------------- | --- | ---- | ------------------- |
+| K36  | Left mouse click                            |     | K39  | Enter               |
+| K37  | Hold: SCROLL layer                          |     | K40  | Hold: NUM layer     |
+| K38  | Space                                       |     |      |                     |
 
-🔗 Combos
-| Trigger Keys              | Result                                 |
-| ------------------------- | -------------------------------------- |
-| `K17 + K18`               | **Caps Word** (one-shot words in CAPS) |
-| `K25 + K26`               | **Left Click**                         |
-| `K26 + K27`               | **Middle Click**                       |
-| `K27 + K28`               | **Right Click**                        |
-| `K13 + K22`               | Toggle **MOUSE** layer                 |
-| `K38 + K39` (thumb cluster)| Layer-swap **BASE ⇄ EXTRAS**           |
-
-
-⚙️ Other Highlights
-- **Timeless home row mods:** Based on [urob's](https://github.com/urob/zmk-config#timeless-homerow-mods) work and configured on the BASE layer with balanced flavor on both halves (280 ms tapping-term, and quick-tap with prior-idle tuning).
-- **Thumb-scroll mode:** Hold the left-most thumb button (K36) while moving the trackball to turn motion into scroll.
-- **Precision cursor mode:** Double-tap, then hold K36 to drop the pointer speed, release to return to normal speed.
-- **Mouse-Click + Symbol-Layer - K37**
-  - Tap: Left mouse click
-  - Tap & Hold: Layer 3 (symbols) while the key is held
-  - Double-Tap & Hold: holds the left mouse button
-  - Tripple-Tap: Double mouse click
-- **Backspace + Number-Layer - K38**
-  - Tap: Backspace
-  - Hold: Layer 1 (numbers) while the key is held
-  - Double-Tap & Hold: Keeps Backspace held
-- **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
-- **PMW3610 low power trackball sensor driver:** Provided by [badjeff](https://github.com/badjeff/zmk-pmw3610-driver)
-  - Patched to remove build warnings and prevent cursor jump on wake
-- **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
-- **Quick-tap / prior-idle:** Tuned for faster mod-vs-tap detection.
-- **ZMK Studio:** Supported on BT builds for quick and easy keymap adjustments. Dongle support will come soon.
+#### Key Highlights
+- **Layer-tap on Tab (K00):** Tap for Tab, hold for SNIPE layer (F-keys, BT, media, brightness)
+- **SCROLL layer (K37):** Hold for arrow keys + delete + clipboard paste (`Gui+Shift+V`), right thumb becomes `Alt` and `Gui`
+- **NUM layer (K40):** Numbers on home row, brackets and quotes on top row, `_ - = +` on bottom row, right-click on left thumb
+- **Bluetooth profile switching:** Access via SNIPE layer — `BT_SEL 0-2` and `BT_CLR`
+- **Media controls:** Access via SNIPE layer — prev/play/next, mute, volume, brightness
+- **Caps Word:** `&caps_word` available (continues on `_` and `-`)
+- **PMW3610 trackball sensor driver:** Provided by [280Zo](https://github.com/280Zo/zmk-pmw3610-driver) (fork of [badjeff](https://github.com/badjeff/zmk-pmw3610-driver))
 
 
 ## Customize Keymaps, Layers, & Trackball
