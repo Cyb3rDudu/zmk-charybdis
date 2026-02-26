@@ -132,7 +132,7 @@ jobs:
         KM="${{ matrix.combo.keymap }}"
         FM="${{ matrix.combo.format }}"   # bt | dongle | reset
         NM="${{ matrix.combo.name }}"
-        BD="${{ matrix.combo.board }}"    # nice_nano
+        BD="${{ matrix.combo.board }}"    # nice_nano//zmk
 
         declare -A LIST=(
           [bt]="charybdis_left charybdis_right"
@@ -148,9 +148,9 @@ jobs:
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # USB logging only on right half of BT builds (temporarily replaces studio-rpc-usb-uart)
+          # studio RPC only on right half of BT builds
           if [[ "$FM" == "bt" && "$SH" == *right ]]; then
-            SNIPPET_OPTION="-DSNIPPET=zmk-usb-logging"
+            SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
           else
             SNIPPET_OPTION=""
           fi

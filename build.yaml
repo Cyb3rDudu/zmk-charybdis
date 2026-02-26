@@ -1,7 +1,7 @@
 # This file generates the GitHub Actions matrix.
 
 board:
-  - nice_nano
+  - nice_nano//zmk
 
 shield:
   - charybdis_left
@@ -14,7 +14,7 @@ keymap:
   - qwerty
 
 include:
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: charybdis_right
     keymap: qwerty
     snippet: studio-rpc-usb-uart
