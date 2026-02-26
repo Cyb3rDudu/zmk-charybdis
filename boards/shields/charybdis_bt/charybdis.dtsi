@@ -43,10 +43,4 @@
         wakeup-source;
         diode-direction = "row2col";
     };
-
-    /* ZMK Studio unlock: LCTRL + RCTRL (positions 24 and 35) */
-    zmk_studio_unlock: zmk,studio-unlock {
-        compatible = "zmk,studio-unlock";
-        keys = <24 35>;
-    };
 };
