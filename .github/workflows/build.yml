@@ -148,9 +148,9 @@ jobs:
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # studio RPC + USB logging on right half of BT builds
+          # USB logging only on right half of BT builds (temporarily replaces studio-rpc-usb-uart)
           if [[ "$FM" == "bt" && "$SH" == *right ]]; then
-            SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart;zmk-usb-logging"
+            SNIPPET_OPTION="-DSNIPPET=zmk-usb-logging"
           else
             SNIPPET_OPTION=""
           fi
