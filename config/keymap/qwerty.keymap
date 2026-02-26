@@ -40,7 +40,7 @@
                 &kp LCTRL       &kp Z        &kp X        &kp C        &kp V        &kp B
                 &kp N           &kp M        &kp COMMA    &kp DOT      &kp SLASH    &kp RCTRL
 
-                &mo 3           &mkp LCLK    &kp SPACE
+                &kp SPACE       &mo 3        &mkp LCLK
                 &kp ENTER       &mo 1
             >;
         };
@@ -57,7 +57,7 @@
                 &trans               &none                 &none          &none             &none                 &none
                 &kp UNDERSCORE       &kp MINUS             &kp EQUAL      &kp PLUS          &trans                &trans
 
-                &trans               &mkp RCLK             &trans
+                &trans               &trans                &mkp RCLK
                 &trans               &trans
             >;
         };
