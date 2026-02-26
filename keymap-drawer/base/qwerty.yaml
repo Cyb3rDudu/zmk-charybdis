@@ -96,7 +96,7 @@ layers:
   - UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - DELETE
+  - BACK SPACE
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -138,7 +138,7 @@ layers:
   - UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - DELETE
+  - BACK SPACE
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
