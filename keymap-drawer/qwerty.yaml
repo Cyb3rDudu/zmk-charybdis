@@ -37,8 +37,8 @@ layers:
   - .
   - /
   - RCTRL
-  - L CLK
   - SCROLL
+  - L CLK
   - SPACE
   - ENTER
   - NUM
@@ -79,8 +79,8 @@ layers:
   - +
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - R CLK
   - {t: ▽, type: trans}
+  - R CLK
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
@@ -163,8 +163,8 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - LALT
   - LGUI
