@@ -66,7 +66,7 @@
             label = "NAVI";
             bindings = <
                 &kp TAB         &trans          &trans       &trans       &trans       &trans
-                &trans          &trans        &kp UP       &trans          &trans            &kp DELETE
+                &trans          &trans        &kp UP       &trans          &trans            &kp BACKSPACE
 
                 &trans          &trans       &trans       &trans       &trans           &trans
                 &trans           &kp LEFT     &kp DOWN     &kp RIGHT    &trans            &kp LG(LS(V))
@@ -83,7 +83,7 @@
             label = "SCROLL";
             bindings = <
                 &kp TAB         &trans          &trans       &trans       &trans       &trans
-                &trans          &trans        &kp UP       &trans          &trans            &kp DELETE
+                &trans          &trans        &kp UP       &trans          &trans            &kp BACKSPACE
 
                 &trans          &trans       &trans       &trans       &trans           &trans
                 &trans           &kp LEFT     &kp DOWN     &kp RIGHT    &trans            &kp LG(LS(V))
