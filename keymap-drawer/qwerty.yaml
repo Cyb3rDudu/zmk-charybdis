@@ -37,9 +37,9 @@ layers:
   - .
   - /
   - RCTRL
-  - SPACE
-  - SCROLL
   - L CLK
+  - SCROLL
+  - SPACE
   - ENTER
   - NUM
   NUM:
@@ -79,9 +79,9 @@ layers:
   - +
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - R CLK
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {type: held}
   NAVI:
