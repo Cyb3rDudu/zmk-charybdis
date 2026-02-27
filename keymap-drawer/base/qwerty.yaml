@@ -181,7 +181,7 @@ layers:
   - F10
   - F11
   - F12
-  - ZMK Studio
+  - {t: ▽, type: trans}
   - BT CLR
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
@@ -192,7 +192,7 @@ layers:
   - NEXT
   - Ctl+ UP
   - Gui+ SPACE
-  - {t: ▽, type: trans}
+  - ZMK Studio
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
