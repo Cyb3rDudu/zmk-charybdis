@@ -102,8 +102,8 @@
                 &kp F1      &kp F2       &kp F3           &kp F4           &kp F5           &kp F6
                 &kp F7      &kp F8       &kp F9           &kp F10          &kp F11          &kp F12
 
-                &studio_unlock &bt BT_CLR  &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &none
-                &kp C_PREV  &kp C_PP     &kp C_NEXT       &kp LC(UP)       &kp LG(SPACE)    &trans
+                &trans      &bt BT_CLR   &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &none
+                &kp C_PREV  &kp C_PP     &kp C_NEXT       &kp LC(UP)       &kp LG(SPACE)    &studio_unlock
 
                 &trans      &trans       &trans           &trans           &trans           &trans
                 &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP     &kp C_BRI_DN     &kp C_BRI_UP     &trans
