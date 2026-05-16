@@ -208,5 +208,5 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - Alt+Gui+ LEFT
+  - Alt+Gui+ RIGHT
