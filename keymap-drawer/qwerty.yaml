@@ -46,38 +46,38 @@ layers:
   - ESC
   - '`'
   - \
-  - ''
   - ''''
-  - Sft+ '
-  - Sft+ [
-  - Sft+ ]
-  - ''
   - '['
   - ']'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '-'
   - '1'
   - '2'
   - '3'
   - '4'
   - '5'
+  - ''
+  - Ctl+Sft+ LEFT
+  - ''
+  - Ctl+Sft+ RIGHT
+  - ''
+  - {t: ▽, type: trans}
+  - '='
   - '6'
   - '7'
   - '8'
   - '9'
   - '0'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
   - ''
   - ''
-  - _
-  - '-'
-  - '='
-  - +
-  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - R CLK
   - {t: ▽, type: trans}
@@ -187,10 +187,10 @@ layers:
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
   - ''
-  - PREV
-  - PP
-  - NEXT
-  - Ctl+ UP
+  - ''
+  - Alt+Gui+ LEFT
+  - ''
+  - Alt+Gui+ RIGHT
   - Gui+ SPACE
   - ZMK Studio
   - {t: ▽, type: trans}
@@ -208,5 +208,5 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Alt+Gui+ LEFT
-  - Alt+Gui+ RIGHT
+  - Ctl+ UP
+  - Ctl+Alt+Gui+ SPACE
