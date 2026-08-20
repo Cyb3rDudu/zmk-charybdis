@@ -55,7 +55,7 @@ layers:
   - ''
   - ''
   - {t: ▽, type: trans}
-  - '-'
+  - {t: ▽, type: trans}
   - '1'
   - '2'
   - '3'
@@ -67,15 +67,15 @@ layers:
   - Ctl+Sft+ RIGHT
   - ''
   - {t: ▽, type: trans}
-  - '='
+  - {t: ▽, type: trans}
   - '6'
   - '7'
   - '8'
   - '9'
   - '0'
-  - ''
-  - ''
-  - ''
+  - '='
+  - '-'
+  - Ctl+ S
   - ''
   - ''
   - {t: ▽, type: trans}
