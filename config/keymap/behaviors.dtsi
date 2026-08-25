@@ -205,6 +205,28 @@
             bindings = <&mo 5>, <&to 0>;
         };
 
+        // Right-thumb dance: hold = NUM layer; double-tap-and-hold = NAVI
+        // while held. Inner hold-tap is hold-preferred with a very short term
+        // so a hold fires before the tap-dance counter can advance; a plain
+        // single tap does nothing (&none).
+        mo_num: mo_num {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <1>;
+            flavor       = "hold-preferred";
+            tapping-term-ms = <40>;
+            hold-while-undecided;
+            bindings = <&mo>, <&none>;
+        };
+
+        td_num_nav: td_num_nav {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <170>;
+            // 1) tap+hold (or just hold) = NUM
+            // 2) double-tap, keep holding = NAVI as a momentary layer
+            bindings = <&mo_num 1>, <&mo 2>;
+        };
+
         mm_qm_ex: question_exclamation {
             compatible    = "zmk,behavior-mod-morph";
             #binding-cells = <0>;

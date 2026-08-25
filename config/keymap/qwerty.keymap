@@ -41,7 +41,7 @@
                 &kp N           &kp M        &kp COMMA    &kp DOT      &kp SLASH    &kp RCTRL
 
                 &mkp LCLK       &mo 3        &kp SPACE
-                &kp ENTER       &mo 1
+                &kp ENTER       &td_num_nav
             >;
         };
 
@@ -66,16 +66,16 @@
             label = "NAVI";
             bindings = <
                 &kp TAB         &trans          &trans       &trans       &trans       &trans
-                &trans          &trans        &kp UP       &trans          &trans            &kp BACKSPACE
+                &trans          &trans        &trans       &trans          &trans            &kp BACKSPACE
 
                 &trans          &trans       &trans       &trans       &trans           &trans
-                &trans           &kp LEFT     &kp DOWN     &kp RIGHT    &trans            &kp LG(LS(V))
+                &trans           &kp LC(UP)   &trans       &kp LC(LA(LG(SPACE)))  &trans            &kp LG(LS(V))
 
                 &trans          &trans       &trans       &trans       &trans           &trans
-                &trans          &trans       &trans       &trans       &trans            &mo 3
+                &trans          &trans       &trans       &trans       &trans           &trans
 
-                &trans       &trans       &trans
-                &kp LALT   &kp LGUI
+                &mkp RCLK       &kp LC(UP)   &kp LC(LA(LG(SPACE)))
+                &trans          &trans
             >;
         };
 
