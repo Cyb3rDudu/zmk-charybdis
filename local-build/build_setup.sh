@@ -253,7 +253,7 @@ west build --pristine -s app \
   -- \
     -DSHIELD=settings_reset \
     -DCONFIG_NRF_STORE_REBOOT_TYPE_GPREGRET=n \
-    > build.log 2>&1 # ignore all the keymap warnings
+    > build.log 2>&1 || { echo '=== settings_reset build failed, tail of build.log: ==='; tail -40 build.log; exit 1; }
 
 cp "$BUILD_DIR/zephyr/zmk.uf2" "$FIRM_PATH"
 chmod 666 "$FIRM_PATH"
