@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - name: Checkout repo (no submodules)
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with: { python-version: "3.x" }
 
     - name: OS deps
@@ -32,7 +32,7 @@ jobs:
     #     echo "⚙️ Generating additional keymaps"
     #     mv config/keymap/charybdis.keymap config/keymap/qwerty.keymap
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with: { name: generated-keymaps, path: config/keymap/ }
 
     - name: Build-matrix JSON
@@ -64,7 +64,7 @@ jobs:
 
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Initialise West workspace
       shell: bash
@@ -88,7 +88,7 @@ jobs:
 
     # ───────── pull in keymaps ─────────
     - name: Download keymaps
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with: { name: generated-keymaps, path: config/keymap }
 
     # ───────── stage keymaps and helper files ─────────
@@ -194,7 +194,7 @@ jobs:
         done
 
     - name: Upload firmware bundle
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: charybdis-${{ matrix.combo.name }}
         path: ${{ github.workspace }}/out/${{ matrix.combo.name }}/**
@@ -210,7 +210,7 @@ jobs:
     permissions: { contents: write }
 
     steps:
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v5
       with: { path: combo-artifacts/ }
 
     - name: Zip each combo
@@ -220,7 +220,7 @@ jobs:
           zip -j "${d%/}.zip" "$d"*
         done
 
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref_name }}
         name: Firmware Release ${{ github.ref_name }}
