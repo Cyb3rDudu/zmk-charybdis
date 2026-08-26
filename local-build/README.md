@@ -28,10 +28,31 @@ Make sure you have:
 
 ### 2. Start the Build Container
 
+With Docker Compose:
+
 ```bash
 cd local-build
 docker-compose run --rm builder
 ```
+
+With plain Podman (no compose CLI needed; verified on macOS):
+
+```bash
+podman run --rm -v "$PWD:/workspaces/zmk:rw" -w /workspaces/zmk -t \
+  zmkfirmware/zmk-dev-arm:stable bash ./local-build/build_setup.sh
+```
+
+Notes from verified local runs:
+
+- The **first run** clones the full ZMK tree plus all west modules
+  (several minutes); subsequent runs reuse the container image but west
+  re-fetches per sandbox, so expect a couple of minutes of `west update`
+  before any compile output.
+- The script builds **every shield × every keymap** in `config/keymap/`
+  plus a `settings_reset` firmware at the end.
+- All build output of the reset build is redirected to `build.log`
+  inside the container; if the run ends right after "Building
+  settings_reset firmware...", inspect that log.
 
 ### 3. Firmware Output
 
