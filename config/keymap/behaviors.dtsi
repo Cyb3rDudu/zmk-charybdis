@@ -215,7 +215,7 @@
         // single tap does nothing (&none).
         mo_num: mo_num {
             compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <1>;
+            #binding-cells = <2>;
             flavor       = "hold-preferred";
             tapping-term-ms = <40>;
             hold-while-undecided;
@@ -228,7 +228,7 @@
             tapping-term-ms = <170>;
             // 1) tap+hold (or just hold) = NUM
             // 2) double-tap, keep holding = NAVI as a momentary layer
-            bindings = <&mo_num 1>, <&mo 2>;
+            bindings = <&mo_num 1 0>, <&mo 2>;
         };
 
         mm_qm_ex: question_exclamation {
