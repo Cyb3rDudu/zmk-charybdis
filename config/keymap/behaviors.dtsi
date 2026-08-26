@@ -1,22 +1,9 @@
-#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 19 20 21 22  // Left-hand keys.
-#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 16 15 14 13  // Right-hand keys.
-#define THUMBS 36 37 38 39 40  // Thumb keys.
-
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/modifiers.h>
 
 / {
     behaviors {
-        // ht_num_func: homerow_mod {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     #binding-cells = <2>;
-        //     flavor = "tap-preferred";
-        //     tapping-term-ms = <260>; // triggers the hold behavior when the tapping-term-ms has expired
-        //     quick-tap-ms = <220>; // If you press a tapped hold-tap again within quick-tap-ms milliseconds of the first press, it will always trigger the tap behavior.
-        //     require-prior-idle-ms = <185>; // like quick-tap-ms however it will apply for any non-modifier key pressed before it
-        //     bindings = <&kp>, <&kp>;  // hold, tap
-        // };
 
 
 
@@ -31,91 +18,17 @@
 
 
         // Left-hand HRM
-        ht_left: left_side_homerow_mod {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <160>;
-            require-prior-idle-ms = <65>;
-            retro-tap;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-        };
 
         // Right-hand HRM
-        ht_right: right_side_homerow_mod {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <160>;
-            require-prior-idle-ms = <55>;
-            retro-tap;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_L THUMBS>;
-        };
-
-        td_esc_scrl_slow: td_esc_scrl_slow {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <150>;
-            bindings = <&lt 7 ESC>, <&mo 6>; // hold, tap, double_tap
-        };
-
-        lt_nav: nav_layer_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <170>;
-            bindings = <&mo>, <&kp>;
-        };
-
-        td_space_nav: td_space {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <110>;
-            bindings = <&lt_nav 2 SPACE>, <&kp SPACE>; // hold, tap, double_tap
-        };
-
-        mo_clk: mo_click {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <40>;
-            hold-while-undecided;
-            bindings = <&mo>, <&mkp>;
-        };
-
-        td_clk: td_clk {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <170>;
-            bindings = <&mo_clk 3 LCLK>, <&mkp LCLK>; // hold, tap, double_tap
-        };
-
-        mo_kp: mo_kp {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor       = "hold-preferred";
-            tapping-term-ms = <40>;
-            hold-while-undecided;
-            bindings = <&mo>, <&kp>;
-        };
-
-        td_bs: td_bs {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <170>;
-            bindings = <&mo_kp 1 BACKSPACE>, <&kp BACKSPACE>; // hold, tap, double_tap
-        };
 
 
-        td_layers: td_layer_swap {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&to 0>, <&to 4>; // tap, double_tap
-        };
+
+
+
+
+
+
+
 
 
 
@@ -132,6 +45,28 @@
             bindings = <&mo>, <&none>;
         };
 
+        // Left-thumb dance: hold = SCROLL layer; double-tap-and-hold = SNIPE.
+        // Same shape as td_num_nav: hold-preferred inner with a short term so
+        // the hold fires while the dance is still counting.
+        mo_sc: mo_sc {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor       = "hold-preferred";
+            tapping-term-ms = <40>;
+            hold-while-undecided;
+            bindings = <&mo>, <&none>;
+        };
+
+        td_sc_snipe: td_sc_snipe {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            // window measured press-to-press (see td_num_nav note)
+            tapping-term-ms = <280>;
+            // 1) tap+hold (or just hold) = SCROLL
+            // 2) double-tap, keep holding = SNIPE as a momentary layer
+            bindings = <&mo_sc 3 0>, <&mo 4>;
+        };
+
         td_num_nav: td_num_nav {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
@@ -144,25 +79,7 @@
             bindings = <&mo_num 1 0>, <&mo 2>;
         };
 
-        mm_qm_ex: question_exclamation {
-            compatible    = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings      = <&kp QUESTION>, <&kp EXCLAMATION>;
-            mods          = <(MOD_LSFT | MOD_RSFT)>;
-        };
 
-        mm_pr_col: period_colon {
-            compatible    = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings      = <&kp PERIOD>, <&kp COLON>;
-            mods          = <(MOD_LSFT | MOD_RSFT)>;
-        };
 
-        mm_cm_sc: comma_semi_colon {
-            compatible    = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings      = <&kp COMMA>, <&kp SEMICOLON>;
-            mods          = <(MOD_LSFT | MOD_RSFT)>;
-        };
     };
 };

@@ -74,8 +74,6 @@ By default both Bluetooth and Dongle formats will build firmware pairs for the Q
 
 **Single keymap:**
 Any `.keymap` files in the `config/keymap/` directory will be automatically built. By default QWERTY and Colemak DH are included, but you can add or remove as many as you'd like as long as there is at least one .keymap file to process.
-Some additional keymaps are available in the extra-keymaps directory.
-
 **Single shield format (Dongle or Bluetooth):**
 Delete the shield directory (charybdis_dongle or charybdis_bt) from the config/boards/shields/ folder to build only the format you need.
 
