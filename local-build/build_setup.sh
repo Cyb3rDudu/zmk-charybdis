@@ -37,7 +37,7 @@ west zephyr-export
 
 # Set permissions so users can delete them
 echo "🛠️  Setting permissions on ZMK resources:"
-chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver
+chmod -R 777 .west zmk zephyr modules zmk-pmw3610-driver || true  # tolerate bind-mount races
 
 # # Optional: confirm checkout
 # echo "🛠️  West workspace ready. Project structure:"
