@@ -1,47 +1,7 @@
 layout: {zmk_keyboard: qwerty}
 layers:
-  QWRT:
-  - {t: TAB, h: SNIPE}
-  - Q
-  - W
-  - E
-  - R
-  - T
-  - Y
-  - U
-  - I
-  - O
-  - P
-  - BACK SPACE
-  - LEFT SHIFT
-  - A
-  - S
-  - D
-  - F
-  - G
-  - H
-  - J
-  - K
-  - L
-  - ;
-  - RIGHT SHIFT
-  - LCTRL
-  - Z
-  - X
-  - C
-  - V
-  - B
-  - N
-  - M
-  - ','
-  - .
-  - /
-  - RCTRL
-  - L CLK
-  - SCROLL
-  - SPACE
-  - ENTER
-  - '&td_num_nav'
+  QWRT: [TAB, Q, W, E, R, T, Y, U, I, O, P, BACK SPACE, LEFT SHIFT, A, S, D, F, G, H, J, K, L, ;, RIGHT SHIFT, LCTRL, Z, X, C, V, B, N, M, ',', ., /, RCTRL, L CLK,
+    '&td_sc_snipe', SPACE, ENTER, '&td_num_nav']
   NUM:
   - ESC
   - '`'
@@ -164,12 +124,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - LALT
   - LGUI
   SNIPE:
-  - {t: F1, type: held}
+  - F1
   - F2
   - F3
   - F4
