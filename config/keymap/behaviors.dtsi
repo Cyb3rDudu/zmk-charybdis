@@ -209,7 +209,7 @@
             bindings = <&mo 5>, <&to 0>;
         };
 
-        // Right-thumb dance: hold = NUM layer; double-tap-and-hold = NAVI
+        // Right-thumb dance: hold = NUM layer; double-tap-and-hold = NAV
         // while held. Inner hold-tap is hold-preferred with a very short term
         // so a hold fires before the tap-dance counter can advance; a plain
         // single tap does nothing (&none).
@@ -230,7 +230,7 @@
             // before the second press registered
             tapping-term-ms = <280>;
             // 1) tap+hold (or just hold) = NUM
-            // 2) double-tap, keep holding = NAVI as a momentary layer
+            // 2) double-tap, keep holding = NAV as a momentary layer
             bindings = <&mo_num 1 0>, <&mo 2>;
         };
 

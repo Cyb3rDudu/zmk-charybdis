@@ -37,7 +37,7 @@ To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
 | - | ---------- | ------------------------------- | --------------------------------------------- |
 | 0 | **QWRT**   | Default                         | Standard QWERTY typing                        |
 | 1 | **NUM**    | Hold right thumb (K40)          | Numbers, brackets, symbols, arithmetic         |
-| 2 | **NAVI**   | —                               | Arrow keys, delete, clipboard paste            |
+| 2 | **NAV**   | —                               | Arrow keys, delete, clipboard paste            |
 | 3 | **SCROLL** | Hold left thumb (K37)           | Arrow keys, delete, clipboard paste            |
 | 4 | **SNIPE**  | Hold top-left key (K00)         | F-keys, Bluetooth, media, brightness           |
 

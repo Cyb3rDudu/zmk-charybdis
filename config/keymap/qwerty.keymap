@@ -1,6 +1,6 @@
 #define DEFAULT 0
 #define NUM     1
-#define NAVI    2
+#define NAV    2
 #define SCROLL  3
 #define SNIPE   4
 
@@ -64,13 +64,13 @@
         };
 
         mouse_layer {
-            label = "NAVI";
+            label = "NAV";
             bindings = <
                 &kp TAB         &trans          &trans       &trans       &trans       &trans
                 &trans          &trans        &trans       &trans          &trans            &kp BACKSPACE
 
                 &trans          &trans       &trans       &trans       &trans           &trans
-                &trans           &kp LC(UP)   &trans       &kp LC(LA(LG(SPACE)))  &trans            &kp LG(LS(V))
+                &trans          &kp LA(LG(LEFT))  &trans  &kp LA(LG(RIGHT))  &trans     &kp LG(LS(V))
 
                 &trans          &trans       &trans       &trans       &trans           &trans
                 &trans          &trans       &trans       &trans       &trans           &trans
