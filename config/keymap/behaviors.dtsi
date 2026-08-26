@@ -225,7 +225,10 @@
         td_num_nav: td_num_nav {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <170>;
+            // window measured press-to-press; a relaxed double-tap runs
+            // 150-250ms so 170ms resolved to the single-tap binding (NUM)
+            // before the second press registered
+            tapping-term-ms = <280>;
             // 1) tap+hold (or just hold) = NUM
             // 2) double-tap, keep holding = NAVI as a momentary layer
             bindings = <&mo_num 1 0>, <&mo 2>;
