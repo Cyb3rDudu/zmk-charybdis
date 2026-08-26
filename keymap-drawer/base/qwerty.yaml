@@ -104,9 +104,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Ctl+ UP
+  - Alt+Gui+ LEFT
   - {t: ▽, type: trans}
-  - Ctl+Alt+Gui+ SPACE
+  - Alt+Gui+ RIGHT
   - {t: ▽, type: trans}
   - Gui+Sft+ V
   - {t: ▽, type: trans}
