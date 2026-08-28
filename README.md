@@ -1,150 +1,108 @@
-[![.github/workflows/build.yml](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml/badge.svg)](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware/actions/workflows/build.yml)
+[![.github/workflows/build.yml](https://github.com/Cyb3rDudu/zmk-charybdis/actions/workflows/build.yml/badge.svg)](https://github.com/Cyb3rDudu/zmk-charybdis/actions/workflows/build.yml)
 
 ## Intro
 
-This repository offers pre-configured ZMK firmware designed for [Wireless Charybdis keyboards](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide?tab=readme-ov-file). It supports both Bluetooth/USB and Dongle configurations and uses the latest input listener and processors to act as a bridge between the trackball and the rest of the system.
+Personal ZMK firmware configuration for a [Wireless Charybdis 3x6](https://github.com/280Zo/charybdis-wireless-mini-3x6-build-guide) split keyboard with PMW3610 trackball, built on Nice!Nano v2 controllers. It supports both Bluetooth/USB and 2.4 GHz dongle configurations.
 
-If you want to customize things the repo is set up to build through GitHub Actions (just clone and run it), or you can use the
-containerized build script that will build all firmwares locally with a single command.
+This is a standalone configuration (not a git fork). It started from [280Zo's firmware](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware) in early 2026 and has since diverged into its own keymap, behavior set, CI and build tooling.
 
+## Firmware Stack
+
+All dependencies are pinned to fixed revisions in [`config/west.yml`](config/west.yml):
+
+| Component | Revision | Source |
+| ---------- | -------- | ------ |
+| ZMK | `268b1b1e` | [zmkfirmware/zmk](https://github.com/zmkfirmware/zmk) |
+| PMW3610 driver | `44b4a76` | [badjeff/zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver) |
+| Board | `nice_nano//zmk` (nRF52840) | — |
+
+Firmware builds are produced by GitHub Actions on every push to `main`; artifacts land under the Actions tab.
 
 ## Quick Start
 
 ### Flashing the Firmware
 
-Download your choice of firmware from the Releases page. Choose a combination of format (Bluetooth/Dongle) and layout (QWERTY, etc.), then follow the steps below to flash it to your keyboard
+Download the firmware from a recent [Actions run](https://github.com/Cyb3rDudu/zmk-charybdis/actions) (or build locally, see below). Then:
 
-1. Unzip the firmware zip
-2. Plug the right half into the computer through USB
-3. Double press the reset button
-4. The keyboard will mount as a removable storage device
-5. Copy the applicable uf2 file into the NICENANO storage device (e.g. charybdis_qwerty_dongle.uf2 -> dongle)
-6. It will take a few seconds, then it will unmount and restart itself.
-7. Repeat these steps for all devices.
-8. You should now be able to use your keyboard
+1. Plug the right half into the computer through USB
+2. Double press the reset button
+3. The keyboard mounts as a removable storage device
+4. Copy the applicable `.uf2` file into the NICENANO storage device (e.g. `charybdis_right.uf2` → right half)
+5. It unmounts and restarts itself after a few seconds
+6. Repeat for all devices
 
-> [!NOTE]  
-> If you are flashing the firmware for the first time, or if you're switching between the dongle and the Bluetooth/USB configuration, flash the reset firmware to all the devices first
+> [!NOTE]
+> When flashing for the first time, or when switching between the dongle and the Bluetooth/USB configuration, flash the `settings_reset` firmware to all devices first.
 
 ### Overview & Usage
 
 ![keymap base](keymap-drawer/base/qwerty.svg)
 
-To see all the layers check out the [full render](keymap-drawer/qwerty.svg).
+To see all layers check out the [full render](keymap-drawer/qwerty.svg).
 
 #### Layers
-| # | Layer      | Access                          | Purpose                                       |
-| - | ---------- | ------------------------------- | --------------------------------------------- |
-| 0 | **QWRT**   | Default                         | Standard QWERTY typing                        |
-| 1 | **NUM**    | Hold right thumb (K40)          | Numbers, brackets, symbols, arithmetic         |
-| 2 | **NAV**   | —                               | Arrow keys, delete, clipboard paste            |
-| 3 | **SCROLL** | Hold left thumb (K37)           | Arrow keys, delete, clipboard paste            |
-| 4 | **SNIPE**  | Hold top-left key (K00)         | F-keys, Bluetooth, media, brightness           |
-
-#### Modifiers
-| Position    | Key                              |
-| ----------- | -------------------------------- |
-| Left outer  | `Shift` (row 1), `Ctrl` (row 2) |
-| Right outer | `Shift` (row 1), `Ctrl` (row 2) |
+| # | Layer      | Access                                        | Purpose                                        |
+| - | ---------- | --------------------------------------------- | ---------------------------------------------- |
+| 0 | **QWRT**   | Default                                       | Standard QWERTY typing                         |
+| 1 | **NUM**    | Hold right thumb (K40)                        | Numbers, brackets, symbols, arithmetic          |
+| 2 | **NAV**    | Double-tap right thumb (K40) and hold         | Desktop switching, Mission Control, clipboard   |
+| 3 | **SCROLL** | Hold left thumb (K37)                         | Trackball scrolling, arrows, paste w/o format   |
+| 4 | **SNIPE**  | Double-tap left thumb (K37) and hold          | F-keys, Bluetooth, media, brightness            |
 
 #### Thumb Cluster
-| Key  | Left Hand                                   |     | Key  | Right Hand          |
-| ---- | ------------------------------------------- | --- | ---- | ------------------- |
-| K36  | Left mouse click                            |     | K39  | Enter               |
-| K37  | Hold: SCROLL layer                          |     | K40  | Hold: NUM layer     |
-| K38  | Space                                       |     |      |                     |
+
+Both middle thumb keys are tap-dances with a 280 ms press-to-press window:
+
+| Key | Left hand                                          | | Key | Right hand                                          |
+| --- | -------------------------------------------------- | - | --- | --------------------------------------------------- |
+| K36 | Left mouse click (right-click on NUM)               | | K39 | Enter                                                |
+| K37 | Hold: **SCROLL** · double-tap+hold: **SNIPE**       | | K40 | Hold: **NUM** · double-tap+hold: **NAV**              |
+| K38 | Space                                               | |     |                                                     |
 
 #### Key Highlights
-- **Layer-tap on Tab (K00):** Tap for Tab, hold for SNIPE layer (F-keys, BT, media, brightness)
-- **SCROLL layer (K37):** Hold for arrow keys + delete + clipboard paste (`Gui+Shift+V`), right thumb becomes `Alt` and `Gui`
-- **NUM layer (K40):** Numbers on home row, brackets and quotes on top row, `_ - = +` on bottom row, right-click on left thumb
-- **Bluetooth profile switching:** Access via SNIPE layer — `BT_SEL 0-2` and `BT_CLR`
-- **Media controls:** Access via SNIPE layer — prev/play/next, mute, volume, brightness
-- **Caps Word:** `&caps_word` available (continues on `_` and `-`)
-- **PMW3610 trackball sensor driver:** Provided by [280Zo](https://github.com/280Zo/zmk-pmw3610-driver) (fork of [badjeff](https://github.com/badjeff/zmk-pmw3610-driver))
 
+- **Tap-dance thumb keys:** hold fires the primary layer instantly; a quick double-tap followed by holding the key switches to the secondary layer for as long as it is held (see `td_num_nav` / `td_sc_snipe` in `config/keymap/behaviors.dtsi`)
+- **NAV layer:** `Cmd+Opt+←/→` desktop switching on J/L, Mission Control (`Ctrl+↑`) and the window switcher on the thumb arc, paste-without-formatting (`Cmd+Shift+V`)
+- **NUM layer:** numbers on home row, brackets and quotes on top row, `Ctrl+S` and word-wise selection, right-click on the left thumb
+- **SCROLL layer:** trackball scrolls, arrows on IJKL, `Cmd+Shift+V`
+- **Bluetooth profile switching:** `BT_SEL 0-2` and `BT_CLR` via SNIPE, with on-keyboard passkey entry enabled
+- **Bluetooth tuning:** `+8 dBm` TX power, raised ATT/L2CAP buffers, longer peripheral latency — see `config/charybdis.conf`
+- **Caps Word:** continues on `_` and `-`
+- **PMW3610 trackball:** input processors (speed, acceleration, scroll tuning) in `config/charybdis_pointer.dtsi`, hardware config in `config/charybdis_pmw3610.dtsi`
 
-## Customize Keymaps, Layers, & Trackball
+## Customizing
 
-This section will help you personalize your firmware. Everything—from keys and layers to advanced trackball behaviors—can easily be customized, even if you're new to ZMK.
+- **ZMK Studio** is enabled on the Bluetooth right half for runtime keymap changes. Physical key positions live in `charybdis-layouts.dtsi` ([layout converter](https://zmk-physical-layout-converter.streamlit.app/) if you need to change them).
+- **Keymap:** edit `config/keymap/qwerty.keymap` directly; custom behaviors live in `config/keymap/behaviors.dtsi`. Keycode reference: [ZMK docs](https://zmk.dev/docs/codes).
+- **Trackball:** everything pointer-related is grouped in `config/charybdis_pointer.dtsi`.
 
-### Building Only Specific Keymaps or Shields
+### Building Locally
 
-By default both Bluetooth and Dongle formats will build firmware pairs for the QWERTY, Coleman DH, and Graphite keymaps. To save time and streamline your builds, you can build just a single keymap or shield that you're interested in:
+The containerized build compiles every shield × keymap and the `settings_reset` firmware in one go:
 
-**Single keymap:**
-Any `.keymap` files in the `config/keymap/` directory will be automatically built. By default QWERTY and Colemak DH are included, but you can add or remove as many as you'd like as long as there is at least one .keymap file to process.
-**Single shield format (Dongle or Bluetooth):**
-Delete the shield directory (charybdis_dongle or charybdis_bt) from the config/boards/shields/ folder to build only the format you need.
-
-
-### Modify Key Mappings
-
-**ZMK Studio**
-
-[ZMK Studio](https://zmk.studio/) allows users to update functionality during runtime. It's currently only implemented on the Bluetooth builds.
-
-To change the visual layout of the keys, the physical layout must be updated. This is the charybdis-layouts.dtsi file, which handles the actual physical positions of the keys. Though they may appear to be similar, this is different than the matrix transform file (charybdis.json) which handles the electrical matrix to keymap relationship.
-
-To easily modify the physical layout, or convert a matrix transform file, [caksoylar](https://github.com/caksoylar/zmk-physical-layout-converter) has built the [ZMK physical layouts converter](https://zmk-physical-layout-converter.streamlit.app/).
-
-For more details on how to use ZMK Studio, refer to the [ZMK documentation](https://zmk.dev/docs/features/studio).
-
-**Keymap GUI**
-
-Using a GUI to generate the keymap file before building the firmware is another easy way to modify the key mappings. Head over to nickcoutsos' keymap editor and follow the steps below.
-
-- Fork/Clone this repo
-- Open a new tab to the [keymap editor](https://nickcoutsos.github.io/keymap-editor/)
-- Give it permission to see your repo
-- Select the branch you'd like to modify
-- Update the keys to match what you'd like to use on your keyboard
-- Save
-- Wait for the pipeline to run
-- Download and flash the new firmware
-
-**Edit Keymap Directly**
-
-To change a key layout choose a behavior you'd like to assign to a key, then choose a parameter code. This process is more clearly outlined on ZMK's [Keymaps & Behaviors](https://zmk.dev/docs/features/keymaps) page. All keycodes are documented [here](https://zmk.dev/docs/codes) page
-
-Open the config/keymap/charybdis.keymap file and change keys, or add/remove layers, then merge the changes and re-flash the keyboard with the updated firmware.
-
-
-### Modifying Trackball Behavior
-
-The trackball uses ZMK's modular input processor system, making it easy to adjust pointer behavior to your liking. All trackball-related configurations and input processors are conveniently grouped in the `config/charybdis_pointer.dtsi` file. Modify this file to customize tracking speed, acceleration, scrolling behavior, and more—then rebuild your firmware.
-
-
-### Building Your Customized Firmware
-
-You can easily build your firmware locally or leverage GitHub Actions:
-
-**Local Build (recommended for quick testing and debugging)**
-
-Clone this repo, then run these commands from the repo root:
 ```sh
-cd local-build
-docker-compose run --rm builder
+# Docker Compose
+cd local-build && docker-compose run --rm builder
+
+# or plain Podman
+podman run --rm -v "$PWD:/workspaces/zmk:rw" -w /workspaces/zmk -t \
+  zmkfirmware/zmk-dev-arm:stable bash ./local-build/build_setup.sh
 ```
-See the [local build README](local-build/README.md) for additional details, including how to enable USB logging in the builds.
 
-**GitHub Actions**
+Artifacts land in `firmwares/`. Details and caveats: [local-build README](local-build/README.md).
 
-- Fork or clone this repo
-- Push your changes to your GitHub
-- GitHub Actions automatically builds your firmware and publishes downloadable artifacts under the Actions tab.
+### GitHub Actions
 
+Push to `main` and the workflow builds all firmware combos; keymap drawings are regenerated automatically on every change.
 
 ### Troubleshooting
 
-- If the keyboard halves aren't connecting as expected, try pressing the reset button on both halves at the same time. If that doesn't work, follow the [ZMK Connection Issues](https://zmk.dev/docs/troubleshooting/connection-issues#acquiring-a-reset-uf2) documentation for more troubleshooting steps.
-- If you run into a bug or something’s not working, feel free to open an issue or submit a PR! Just keep in mind I'm not a developer, and this is a hobby project so I may not be able to fix everything.
+- If the halves don't connect, press reset on both halves simultaneously; otherwise follow the [ZMK connection issues guide](https://zmk.dev/docs/troubleshooting/connection-issues).
+- When changing shields or BT profiles, flash `settings_reset` first (see note above).
 
+## Credits & Lineage
 
-## Credits
-
-- [badjeff](https://github.com/badjeff)
-- [eigatech](https://github.com/eigatech)
-- [nickcoutsos](https://github.com/nickcoutsos/keymap-editor)
-- [caksoylar](https://github.com/caksoylar/keymap-drawer)
-- [urob](https://github.com/urob/zmk-config#timeless-homerow-mods)
+- [280Zo](https://github.com/280Zo/charybdis-wireless-mini-zmk-firmware) — the firmware this config started from, and the wireless Charybdis build guide
+- [badjeff](https://github.com/badjeff) — the PMW3610 ZMK driver this repo pins directly
+- [caksoylar](https://github.com/caksoylar/keymap-drawer) — automated keymap drawings
+- [eigatech](https://github.com/eigatech), [nickcoutsos](https://github.com/nickcoutsos/keymap-editor), [urob](https://github.com/urob/zmk-config) — upstream heritage of the original config
