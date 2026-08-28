@@ -48,24 +48,7 @@
         // Left-thumb dance: hold = SCROLL layer; double-tap-and-hold = SNIPE.
         // Same shape as td_num_nav: hold-preferred inner with a short term so
         // the hold fires while the dance is still counting.
-        mo_sc: mo_sc {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor       = "hold-preferred";
-            tapping-term-ms = <40>;
-            hold-while-undecided;
-            bindings = <&mo>, <&none>;
-        };
 
-        td_sc_snipe: td_sc_snipe {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            // window measured press-to-press (see td_num_nav note)
-            tapping-term-ms = <280>;
-            // 1) tap+hold (or just hold) = SCROLL
-            // 2) double-tap, keep holding = SNIPE as a momentary layer
-            bindings = <&mo_sc 3 0>, <&mo 4>;
-        };
 
         td_num_nav: td_num_nav {
             compatible = "zmk,behavior-tap-dance";
