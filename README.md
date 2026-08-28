@@ -47,7 +47,7 @@ To see all layers check out the [full render](keymap-drawer/qwerty.svg).
 | 1 | **NUM**    | Hold right thumb (K40)                        | Numbers, brackets, symbols, arithmetic          |
 | 2 | **NAV**    | Double-tap right thumb (K40) and hold         | Desktop switching, Mission Control, clipboard   |
 | 3 | **SCROLL** | Hold left thumb (K37)                         | Trackball scrolling, arrows, paste w/o format   |
-| 4 | **SNIPE**  | Double-tap left thumb (K37) and hold          | F-keys, Bluetooth, media, brightness            |
+| 4 | **SNIPE**  | Hold top-left key (TAB)                        | F-keys, Bluetooth, media, brightness            |
 
 #### Thumb Cluster
 
@@ -56,12 +56,13 @@ Both middle thumb keys are tap-dances with a 280 ms press-to-press window:
 | Key | Left hand                                          | | Key | Right hand                                          |
 | --- | -------------------------------------------------- | - | --- | --------------------------------------------------- |
 | K36 | Left mouse click (right-click on NUM)               | | K39 | Enter                                                |
-| K37 | Hold: **SCROLL** · double-tap+hold: **SNIPE**       | | K40 | Hold: **NUM** · double-tap+hold: **NAV**              |
+| K37 | Hold: **SCROLL**                                     | | K40 | Hold: **NUM** · double-tap+hold: **NAV**              |
 | K38 | Space                                               | |     |                                                     |
 
 #### Key Highlights
 
-- **Tap-dance thumb keys:** hold fires the primary layer instantly; a quick double-tap followed by holding the key switches to the secondary layer for as long as it is held (see `td_num_nav` / `td_sc_snipe` in `config/keymap/behaviors.dtsi`)
+- **Right thumb tap-dance:** hold fires NUM instantly; a quick double-tap followed by holding the key switches to NAV for as long as it is held (see `td_num_nav` in `config/keymap/behaviors.dtsi`)
+- **Layer-tap on TAB:** tap for Tab, hold for the SNIPE layer
 - **NAV layer:** `Cmd+Opt+←/→` desktop switching on J/L, Mission Control (`Ctrl+↑`) and the window switcher on the thumb arc, paste-without-formatting (`Cmd+Shift+V`)
 - **NUM layer:** numbers on home row, brackets and quotes on top row, `Ctrl+S` and word-wise selection, right-click on the left thumb
 - **SCROLL layer:** trackball scrolls, arrows on IJKL, `Cmd+Shift+V`
