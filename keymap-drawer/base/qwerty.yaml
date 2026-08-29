@@ -51,7 +51,7 @@ layers:
   - ']'
   - ''
   - ''
-  - ''
+  - Ctl+Sft+ UP
   - ''
   - ''
   - {t: ▽, type: trans}
@@ -63,7 +63,7 @@ layers:
   - '5'
   - ''
   - Ctl+Sft+ LEFT
-  - ''
+  - Ctl+Sft+ DOWN
   - Ctl+Sft+ RIGHT
   - ''
   - {t: ▽, type: trans}
@@ -76,8 +76,8 @@ layers:
   - '='
   - '-'
   - Ctl+ S
-  - ''
-  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - R CLK
   - {t: ▽, type: trans}
@@ -93,7 +93,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - Ctl+ UP
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - BACK SPACE
@@ -105,7 +105,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - Alt+Gui+ LEFT
-  - {t: ▽, type: trans}
+  - Ctl+Alt+Gui+ SPACE
   - Alt+Gui+ RIGHT
   - {t: ▽, type: trans}
   - Gui+Sft+ V
@@ -122,8 +122,8 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - R CLK
-  - Ctl+ UP
-  - Ctl+Alt+Gui+ SPACE
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   SCROLL:
