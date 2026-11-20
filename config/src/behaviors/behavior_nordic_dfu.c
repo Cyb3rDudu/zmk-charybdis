@@ -2,22 +2,26 @@
  * Copyright (c) 2026
  * SPDX-License-Identifier: MIT
  *
- * &nordic_dfu — enter the Nordic DFU bootloader from the running app.
+ * &nordic_dfu — enter the DFU bootloader from the running app.
  *
- * Writes 0xB1 (BOOTLOADER_DFU_START) into the nRF52 GPREGRET register
- * and performs a warm reset. GPREGRET survives software resets, and the
- * Nordic Open DFU Bootloader (Holyiot dongles, PCA10059) checks it in
- * nrf_dfu_enter_check():
+ * Writes a magic value into the nRF52 GPREGRET register and performs a
+ * warm reset. GPREGRET survives software resets, so the bootloader reads
+ * it on the next boot and stays in DFU mode. The magic value differs per
+ * bootloader:
  *
- *     if (nrf_power_gpregret_get() == BOOTLOADER_DFU_START) return true;
+ * - Nordic Open DFU Bootloader (Holyiot dongles, PCA10059):
+ *     0xB1 (BOOTLOADER_DFU_START), checked in nrf_dfu_enter_check():
+ *     `if (nrf_power_gpregret_get() == BOOTLOADER_DFU_START) return true;`
+ *     The bootloader clears GPREGRET itself after the check.
  *
- * The bootloader clears GPREGRET itself after the check, so no cleanup
- * is needed on this side. The Adafruit nRF52 UF2 bootloader (nice!nano)
- * honours the same value, so the behavior also replaces the
- * double-tap-reset dance on the keyboard halves.
+ * - Adafruit nRF52 UF2 bootloader (nice!nano):
+ *     0x57 (DFU_MAGIC_UF2_RESET) shows the NICENANO UF2 drive.
+ *     0xB1 would enter BLE OTA mode instead (no drive!), which is why
+ *     the value is chosen per shield.
  *
  * Locality is CENTRAL: the behavior executes on the split central
- * (the dongle), no matter which half the key that triggers it sits on.
+ * (the dongle in dongle mode, the right half in bt mode), no matter
+ * which half the key that triggers it sits on.
  */
 
 #define DT_DRV_COMPAT zmk_behavior_nordic_dfu
@@ -35,9 +39,16 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#define NORDIC_BOOTLOADER_DFU_START 0xB1
-
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
+
+#if IS_ENABLED(CONFIG_SHIELD_CHARYBDIS_DONGLE)
+/* Nordic Open DFU Bootloader (nrf52840dongle board): serial DFU mode */
+#define NORDIC_BOOTLOADER_DFU_MAGIC 0xB1
+#else
+/* Adafruit nRF52 UF2 bootloader (nice!nano): NICENANO UF2 drive.
+ * 0xB1 (DFU_MAGIC_OTA_APPJUM) would enter BLE OTA mode without a drive. */
+#define NORDIC_BOOTLOADER_DFU_MAGIC 0x57
+#endif
 
 static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
                                      struct zmk_behavior_binding_event event) {
@@ -45,9 +56,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     ARG_UNUSED(event);
 
     LOG_INF("Rebooting into DFU bootloader (GPREGRET=0x%02x)",
-            NORDIC_BOOTLOADER_DFU_START);
+            NORDIC_BOOTLOADER_DFU_MAGIC);
 
-    nrf_power_gpregret_set(NRF_POWER, 0, NORDIC_BOOTLOADER_DFU_START);
+    nrf_power_gpregret_set(NRF_POWER, 0, NORDIC_BOOTLOADER_DFU_MAGIC);
     sys_reboot(SYS_REBOOT_WARM);
 
     return ZMK_BEHAVIOR_OPAQUE;
