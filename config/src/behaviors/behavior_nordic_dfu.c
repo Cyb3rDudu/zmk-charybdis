@@ -42,8 +42,15 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
 
 #if IS_ENABLED(CONFIG_SHIELD_CHARYBDIS_DONGLE)
-/* Nordic Open DFU Bootloader (nrf52840dongle board): serial DFU mode */
-#define NORDIC_BOOTLOADER_DFU_MAGIC 0xB1
+/*
+ * Nordic Open DFU Bootloader (Holyiot dongles): this bootloader family
+ * IGNORES GPREGRET. Its DFU entry is the pca10059 button check: P0.19
+ * must read LOW at boot (community-proven by SlimeNRF, which drives
+ * GPIO19 low and reboots). GPIO config survives the warm reset, so we
+ * drive the pin low and reboot - the bootloader then stays in DFU mode
+ * and enumerates as 1915:521f for nrfutil.
+ */
+#define NORDIC_DFU_VIA_PIN19
 #else
 /* Adafruit nRF52 UF2 bootloader (nice!nano): NICENANO UF2 drive.
  * 0xB1 (DFU_MAGIC_OTA_APPJUM) would enter BLE OTA mode without a drive. */
@@ -55,10 +62,19 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     ARG_UNUSED(binding);
     ARG_UNUSED(event);
 
+#ifdef NORDIC_DFU_VIA_PIN19
+    LOG_INF("Rebooting into DFU bootloader (P0.19 low)");
+
+    /* Configure P0.19 as output driving low; survives the reset below. */
+    NRF_P0->PIN_CNF[19] = 0x00000003UL; /* DIR=output, INPUT=disconnected */
+    NRF_P0->DIRSET = (1UL << 19);
+    NRF_P0->OUTCLR = (1UL << 19);
+#else
     LOG_INF("Rebooting into DFU bootloader (GPREGRET=0x%02x)",
             NORDIC_BOOTLOADER_DFU_MAGIC);
 
     nrf_power_gpregret_set(NRF_POWER, 0, NORDIC_BOOTLOADER_DFU_MAGIC);
+#endif
     sys_reboot(SYS_REBOOT_WARM);
 
     return ZMK_BEHAVIOR_OPAQUE;
