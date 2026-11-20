@@ -166,7 +166,7 @@ layers:
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
-  - LALT
+  - RALT
   - LGUI
   SNIPE:
   - {t: F1, type: held}
@@ -204,7 +204,7 @@ layers:
   - VOL UP
   - BRI DN
   - BRI UP
-  - '&nordic_dfu'
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
