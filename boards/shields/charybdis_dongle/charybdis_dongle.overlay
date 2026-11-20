@@ -59,3 +59,18 @@
         local-name = "charybdis_right";
     };
 };
+/* Holyiot 19077 USB dongle: the PCB does not populate the DCDC inductor.
+ * The stock Zephyr nrf52840dongle board enables DCDC for reg1, which
+ * collapses VDD on this clone and kills the app at boot. Mirror
+ * SlimeVR's holyiot board definition exactly: reg0 off, reg1 LDO. USB powered, so the
+ * higher LDO quiescent draw is irrelevant here.
+ */
+#include <zephyr/dt-bindings/regulator/nrf5x.h>
+
+&reg0 {
+    status = "disabled";
+};
+
+&reg1 {
+    regulator-initial-mode = <NRF5X_REG_MODE_LDO>;
+};
