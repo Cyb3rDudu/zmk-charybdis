@@ -1,0 +1,11 @@
+description: |
+  Nordic DFU bootloader entry behavior.
+
+  Writes 0xB1 (BOOTLOADER_DFU_START) to the nRF52 GPREGRET register
+  and reboots, so the bootloader stays in DFU mode. Works with the
+  Nordic Open DFU Bootloader (e.g. Holyiot USB dongles, PCA10059)
+  and the Adafruit nRF52 UF2 bootloader (e.g. nice!nano).
+
+compatible: "zmk,behavior-nordic-dfu"
+
+include: zero_param.yaml

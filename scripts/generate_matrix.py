@@ -16,6 +16,16 @@ for keymap in keymaps:
         "board": board,
     })
 
+# dongle build: halves flash with the dongle firmware, charybdis_dongle
+# runs on nrf52840dongle (board override happens in the workflow)
+for keymap in keymaps:
+    groups.append({
+        "keymap": keymap,
+        "format": "dongle",
+        "name": f"{keymap}-dongle",
+        "board": board,
+    })
+
 # single reset entry
 groups.append({
     "keymap": "default",

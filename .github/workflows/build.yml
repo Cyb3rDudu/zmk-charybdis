@@ -148,11 +148,34 @@ jobs:
         for SH in ${LIST[$FM]}; do
           BUILD_DIR=$(mktemp -d)
 
-          # studio RPC only on right half of BT builds
-          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
+          # The dongle shield runs on the nrf52840dongle board (Nordic Open DFU
+          # bootloader, flashed via nrfutil/nRF Connect), everything else on the
+          # board from the matrix (nice_nano).
+          if [[ "$SH" == "charybdis_dongle" ]]; then
+            BRD="nrf52840dongle/nrf52840/zmk"
+          else
+            BRD="$BD"
+          fi
+
+          # studio RPC on the right half of BT builds, and on the dongle for dongle builds
+          if [[ ("$FM" == "bt" && "$SH" == *right) || ("$FM" == "dongle" && "$SH" == "charybdis_dongle") ]]; then
             SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
           else
             SNIPPET_OPTION=""
+          fi
+
+          # In dongle builds the halves are pure peripherals (the dongle is the central)
+          if [[ "$FM" == "dongle" && "$SH" != "charybdis_dongle" ]]; then
+            SPLIT_ROLE_OPTION="-DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n"
+          else
+            SPLIT_ROLE_OPTION=""
+          fi
+
+          # Make sure the dongle build emits a .hex for nRF Connect / nrfutil
+          if [[ "$SH" == "charybdis_dongle" ]]; then
+            HEX_OPTION="-DCONFIG_BUILD_OUTPUT_HEX=y"
+          else
+            HEX_OPTION=""
           fi
 
           # set keymap
@@ -182,15 +205,23 @@ jobs:
           echo "🛠 Kicking off the firmware build..."
           west build -p \
             -d "$BUILD_DIR" \
-            -b "$BD" \
+            -b "$BRD" \
             -- \
             "-DZMK_CONFIG=$CONFIG_DIR" \
             "-DSHIELD=$SH" \
             "$KEYMAP_OPTION" \
-            "$SNIPPET_OPTION"
+            "$SNIPPET_OPTION" \
+            "$SPLIT_ROLE_OPTION" \
+            "$HEX_OPTION"
 
           ART=$(if [[ -f "$BUILD_DIR/zephyr/zmk.uf2" ]]; then echo zmk.uf2; else echo zmk.bin; fi)
           cp "$BUILD_DIR/zephyr/$ART" "$GITHUB_WORKSPACE/out/$NM/$SH.${ART##*.}"
+
+          # The nrf52840dongle is flashed via the Nordic Open DFU bootloader
+          # (nRF Connect Programmer / nrfutil) — ship the .hex alongside the .bin
+          if [[ "$SH" == "charybdis_dongle" && -f "$BUILD_DIR/zephyr/zmk.hex" ]]; then
+            cp "$BUILD_DIR/zephyr/zmk.hex" "$GITHUB_WORKSPACE/out/$NM/$SH.hex"
+          fi
         done
 
     - name: Upload firmware bundle

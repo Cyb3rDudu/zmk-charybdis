@@ -1,0 +1,11 @@
+# Charybdis ZMK config module Kconfig
+
+menuconfig ZMK_BEHAVIOR_NORDIC_DFU
+	bool "Enable Nordic DFU bootloader entry behavior"
+	default y
+	depends on DT_HAS_ZMK_BEHAVIOR_NORDIC_DFU_ENABLED
+	help
+	  Enables the &nordic_dfu behavior. Sets GPREGRET to 0xB1
+	  (BOOTLOADER_DFU_START) and reboots the device so the
+	  Nordic Open DFU Bootloader (and the Adafruit nRF52 UF2
+	  bootloader) stays in DFU mode after the reset.

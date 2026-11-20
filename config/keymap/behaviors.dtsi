@@ -4,6 +4,11 @@
 
 / {
     behaviors {
+        nordic_dfu: nordic_dfu {
+            compatible = "zmk,behavior-nordic-dfu";
+            #binding-cells = <0>;
+            display-name = "DFU Boot";
+        };
 
 
 
